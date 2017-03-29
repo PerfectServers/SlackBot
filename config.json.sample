@@ -1,0 +1,21 @@
+{
+  "token": "xoxb-YOURAPP-TOKENXXXXXXXXXXXXXXXXX",
+  "bot" : "yourBotName",
+  "bot_id": "YOUR_BOT_ID",
+  "client_id": "XXXXXXXX.YYYYYYYYYY",
+  "client_secret": "your-client-secret",
+  "verify_token": "token-to-verify-by-your-app",
+  "oauth_uri": "/v1/oauth",
+  "message_uri": "/v1/message",
+  "confirm_uri": "/v1/confirm",
+  "serverName": "yourhost.yourcompany.domain",
+  "cerPath": "/opt/certificates/yourcertificate.crt",
+  "keyPath": "/opt/certificates/yourcertificate.key",
+  "dbPath": "/var/opt/yoursqlite.db",
+  "runAs": "yourUserName",
+  "port": 443,
+  "channels": {
+    "channel1_id": "channel1_name",
+    "channel2_id": "channel2_name"
+  }
+}

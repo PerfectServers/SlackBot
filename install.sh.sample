@@ -1,0 +1,28 @@
+# Installation Script Example
+# Suppose your server app is named as `slackbot`
+# Please make sure your server installed Swift runtime binaries,
+# i.e., LD_LIBRARY_PATH="/usr/lib/yourSwiftInstalationPath"
+# define the variables
+RPO=slackbot
+TGZ=/tmp/$RPO.tgz
+SVC=$RPO.service
+CFG=$RPO.json
+APP=/tmp/app.tgz
+SERVER=yoursshLoginUserName@yourhost.yourdomain
+LOCALVM=your.local.ubuntu.virtual.machine
+
+# pack source code to local vm
+tar czvf $TGZ Package.swift Sources
+scp $TGZ $LOCALVM:/tmp
+
+# build the binary on local VM
+ssh $LOCALVM "cd /tmp;rm -rf $RPO;mkdir $RPO; cd $RPO; tar xzvf $TGZ;swift build -c release;cd .build/release;tar czvf $APP PerfectTemplate *.so"
+
+# ship the binaries back to your production server
+scp $LOCALVM:$APP $APP
+scp $APP $SERVER:$APP
+scp $SVC $SERVER:/tmp/$SVC
+scp $CFG $SERVER:/tmp/$CFG
+
+# perform installation & register your new app as a service .
+ssh $SERVER "cd /opt;sudo -S rm -rf $RPO;sudo -S mkdir $RPO;cd $RPO;sudo -S tar xzvf $APP;sudo -S cp /tmp/$SVC .;sudo -S cp /tmp/$CFG .;sudo -S systemctl disable $RPO;sudo -S systemctl enable /opt/$RPO/$SVC;sudo -S systemctl start $RPO;sudo -S systemctl status $RPO"

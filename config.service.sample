@@ -1,0 +1,12 @@
+[Unit]
+Description=Your Slack Bot Server
+
+[Service]
+Type=simple
+WorkingDirectory=/var/opt
+ExecStart=/path/to/yourApp/PerfectTemplate
+Restart=always
+PIDFile=/var/run/yourSlackBotApp.pid
+
+[Install]
+WantedBy=multi-user.target
