@@ -183,6 +183,7 @@ WorkingDirectory=/var/opt
 ExecStart=/path/to/yourApp/PerfectTemplate
 Restart=always
 PIDFile=/var/run/yourSlackBotApp.pid
+Environment="LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:/usr/local/lib/swift"
 
 [Install]
 WantedBy=multi-user.target
