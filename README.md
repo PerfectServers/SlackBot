@@ -1,4 +1,4 @@
-# Perfect Slack Bot
+# Perfect Slack Bot [简体中文](README.zh_CN.md)
 
 <p align="center">
     <a href="http://perfect.org/get-involved.html" target="_blank">
@@ -92,11 +92,15 @@ Details of this configuration json file will be discussed later in this article.
 ### Step 2. Register An Application for Your Slack Team
 
 - On the [Slack API](https://api.slack.com), choose "Your Apps" to start a brand new app
-- Bot Users: make a valid name for your bot user, and it will apply to the configuration
-- Adding Permissions: in this example, permissions like "bot user", "channels:history", "channels.read" / "channels.write" and "chart:write:bot" for sending messages as bot are essentially required.
-- Event Subscription: this demo requires at least four Slack events to subscribe: (1) `message.channels`; (2) `message.im`; (3) `reaction_added`; (4) `reaction_removed`.
-- Enable Events by Setting Request URL. Given your server name is `myhost.com` and your configuration `message_uri` with `/v1/message`, then please input this requrest url with `https://myhost.com/v1/message_uri`. *NOTE* Slack will not identify protocols other than HTTPS and the port to server can only be 443.
-- Install your app to your team.
+- Bot Users: make a valid name for your bot user, and it will apply to the configuration <br><img src="bot.png">
+
+- Adding Permissions: in this example, permissions like "bot user", "channels:history", "channels.read" / "channels.write" and "chart:write:bot" for sending messages as bot are essentially required.<br><img src="perm.png">
+
+- Event Subscription: this demo requires at least four Slack events to subscribe: (1) `message.channels`; (2) `message.im`; (3) `reaction_added`; (4) `reaction_removed`.<br><img src="events.png">
+
+- Enable Events by Setting Request URL. Given your server name is `myhost.com` and your configuration `message_uri` with `/v1/msg`, then please input this requrest url with `https://myhost.com/v1/msg`. *NOTE* Slack will not identify protocols other than HTTPS and the port to server can only be 443. 
+
+- Install your app to your team.<br><img src="install.png">
 
 If success, copy all essential configurations to your own `config.json` file, which `token` means the *`Bot User OAuth Access Token`*
 
@@ -104,11 +108,13 @@ If success, copy all essential configurations to your own `config.json` file, wh
 
 Slack Bot needs its id (not the display name) to work with, so it is a bit tricky to get such a name. Please read this section carefully to get the correct id:
 
-- Open a web browser and navigate to [`users.list` Slack API page](https://api.slack.com/methods/users.list/test)
+- Open a web browser and navigate to [`users.list` Slack API page](https://api.slack.com/methods/users.list/test) <br><img src="userlist.png">
+
 - Choose the right team token of your app and click `Test Method`
 - If success, click the link `(open raw response)` and a raw but pretty JSON text shall present.
 - Search the bot's display name from the JSON text.
-- Copy the bot's Slack ID to your configuration file.
+- Copy the bot's Slack ID to your configuration file.<br><img src="botuser.png">
+
 
 ### Step 4. Tricky Part II: Choose The Channels to Spy (Optional but Should Check for Avoiding Spam)
 
@@ -117,7 +123,8 @@ Although many bot distributors are happy to allow their bots to join as many cha
 To archive this objective, follow the instructions below:
 
 - Open a web browser and navigate to [`channels.list` Slack API page](https://api.slack.com/methods/channels.list/test)
-- Choose the right team token of your app and click `Test Method`
+- Choose the right team token of your app and click `Test Method`<br><img src="channels.png">
+
 - If success, click the link `(open raw response)` and a raw but pretty JSON text shall present.
 - Choose the channels for spying, and copy each `id` and `name` pair into your `config.json` file.
 
@@ -226,7 +233,7 @@ ssh $SERVER "cd /opt;sudo -S rm -rf $RPO;sudo -S mkdir $RPO;cd $RPO;sudo -S tar 
 
 Once booting your server, then please go back to your slack api page to confirm all the settings, especially the oauth authentication page:
 
-- Verify the Event Subscription `Request URL`
+- Verify the Event Subscription `Request URL` <br><img src="url.png">
 - Goto your slack channel, invite the bot. *NOTE* add a testing channel for testing may be helpful
 - Test the bot by sending it cookies and directly message it.
 
@@ -240,3 +247,6 @@ A comprehensive list of open issues can be found at [http://jira.perfect.org:808
 
 ## Further Information
 For more information on the Perfect project, please visit [perfect.org](http://perfect.org).
+
+## Now WeChat Subscription is Available (Chinese)
+<p align=center><img src="https://raw.githubusercontent.com/PerfectExamples/Perfect-Cloudinary-ImageUploader-Demo/master/qr.png"></p>
