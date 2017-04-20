@@ -65,7 +65,6 @@ func WEBMessage(data: [String:Any]) throws -> RequestHandler {
         let event = json["event"] as? [String:Any],
         let eventType = event["type"] as? String,
         let now = event["event_ts"] as? String,
-        let channel = event["channel"] as? String,
         let sender = event["user"] as? String
       else
       {
@@ -80,6 +79,7 @@ func WEBMessage(data: [String:Any]) throws -> RequestHandler {
       switch eventType {
 
       case "message":
+        let channel = event["channel"] as? String ?? ""
         // Step 8. If the message is a direct message from user, reply him / her
         guard let channelName = global.channels[channel] else
         {
@@ -134,7 +134,7 @@ func WEBMessage(data: [String:Any]) throws -> RequestHandler {
             guard let name = list[uid] else { return }
             global.lookup(uid: sender) { realName in
                 guard let senderName  = realName else { return }
-                global.deposit(moment: now, channel: channelName, receiver: name, sender: senderName, value: 1)
+                _ = global.deposit(moment: now, channel: channelName, receiver: name, sender: senderName, value: 1)
             }
           }//next
         }//end lookup
@@ -153,7 +153,9 @@ func WEBMessage(data: [String:Any]) throws -> RequestHandler {
       }//end case
 
       // In this demo, we listed `cookie` as the same as in the text for recording
-      guard let reaction = event["reaction"] as? String,
+      guard let event_item = event["item"] as? [String: Any],
+        let channel = event_item["channel"] as? String,
+        let reaction = event["reaction"] as? String,
         let itemUser = event["item_user"] as? String,
         let channelFullName = global.channels[channel],
         itemUser != sender,
